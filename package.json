@@ -1,0 +1,15 @@
+{
+  "name": "opsgenie-connectwise-integration",
+  "version": "1.0.0",
+  "description": "OpsGenie & ConnectWise Integration over AWS Lambda",
+  "main": "index.js",
+  "dependencies": {
+    "request": "^2.73.0"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Zafer Genckaya <zafer@opsgenie.com>",
+  "license": "MIT"
+}
