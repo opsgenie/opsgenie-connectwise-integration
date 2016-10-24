@@ -6,7 +6,7 @@ var opsgenie = {
         key: '<ogApiKey>',
         baseUrl: 'https://api.opsgenie.com/v1/json',
         baseReqOpts: {
-            timeout: 3000,
+            timeout: 30000,
             headers: {
                 'Content-Type': 'application/json',
                 'Accept': 'application/json',
