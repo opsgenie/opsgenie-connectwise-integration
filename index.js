@@ -44,7 +44,7 @@ var connectWise = {
         codebase: 'v4_6_release',
         baseUrl: undefined, // To be set.
         baseReqOpts: {
-            timeout: 3000,
+            timeout: 30000,
             headers: {
                 'Content-Type': 'application/json',
                 'Accept': 'application/json',
