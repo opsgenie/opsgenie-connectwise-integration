@@ -4,13 +4,14 @@ var request = require('request');
 var opsgenie = {
     api: {
         key: '<ogApiKey>',
-        baseUrl: 'https://api.opsgenie.com/v1/json',
+        baseUrl: 'https://api.opsgenie.com/v2/alerts/',
         baseReqOpts: {
             timeout: 30000,
             headers: {
                 'Content-Type': 'application/json',
                 'Accept': 'application/json',
-                'Cache-Control': 'no-cache'
+                'Cache-Control': 'no-cache',
+                'Authorization': 'GenieKey ' + opsgenie.api.key
             }
         }
     }
@@ -101,12 +102,11 @@ function createConnectWiseTicket(event, context) {
 
 function addConnectWiseTicketIdToOpsGenieAlertTags(event, context, connectWiseResBody) {
     var reqOpts = Object.assign({
-        url: opsgenie.api.baseUrl + '/alert/tags',
+        headers: opsgenie.api.headers,
+        url: opsgenie.api.baseUrl + event.alert.alertId +'/tags',
         method: 'POST',
         json: {
-            'apiKey': opsgenie.api.key,
-            'id': event.alert.alertId,
-            'tags': connectWise.ticket.prefix + connectWiseResBody.id
+            'tags': [connectWise.ticket.prefix + connectWiseResBody.id]
         }
     }, opsgenie.api.baseReqOpts);
 
@@ -228,7 +228,12 @@ exports.handler = function (event, context) {
     console.log('Received event: ', event);
 
     if (event.action === 'Create') {
-        createConnectWiseTicket(event, context);
+        if (event.alert.source == "ConnectWise") {
+            console.log("Ignoring action 'Create' since the alert source is ConnectWise.");
+            context.succeed();
+        } else {
+            createConnectWiseTicket(event, context);
+        }
     } else if (event.action === 'AddNote') {
         addNoteToConnectWiseTicket(event, context);
     } else if (event.action === 'Close' || event.action === 'Delete') {
