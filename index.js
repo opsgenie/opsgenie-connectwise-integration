@@ -4,7 +4,6 @@ var request = require('request');
 // CONFIG START
 var opsgenie = {
     api: {
-        key: '<ogApiKey>',
         baseUrl: 'https://api.opsgenie.com/v2/alerts/',
         baseReqOpts: {
             timeout: 30000,
@@ -12,14 +11,14 @@ var opsgenie = {
                 'Content-Type': 'application/json',
                 'Accept': 'application/json',
                 'Cache-Control': 'no-cache',
-                'Authorization': 'GenieKey ' + opsgenie.api.key
+                'Authorization': 'GenieKey ' + '<ogApiKey>' // Do not remove "GenieKey " part, replace only the "<ogApiKey>" part.
             }
         }
     }
 };
 
 var connectWise = {
-    companyId: '<connectWiseCompanyId>',
+    companyId: '<connectWiseCompanyId>', // Your company name.
     publicKey: '<connectWisePublicKey>',
     privateKey: '<connectWisePrivateKey>',
     site: '<connectWiseSite>', // ex: 'au.myconnectwise.net', 'eu.myconnectwise.net', 'na.myconnectwise.net', 'staging.connectwisedev.com'
@@ -111,7 +110,7 @@ function addConnectWiseTicketIdToOpsGenieAlertTags(event, context, connectWiseRe
         }
     }, opsgenie.api.baseReqOpts);
 
-    doApiCall(event, context, reqOpts, 'OpsGenie', 'adding ticket id into alert tags', 200, genericSuccessFunc);
+    doApiCall(event, context, reqOpts, 'OpsGenie', 'adding ticket id into alert tags', 202, genericSuccessFunc);
 }
 
 function addNoteToConnectWiseTicket(event, context) {
