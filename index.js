@@ -42,7 +42,7 @@ var connectWise = {
         prefix: 'CW-'
     },
     api: {
-        codebase: 'v4_6_release',
+        codebase: '<connectWiseCodeBase>', // ex: 'v2017_6'
         baseUrl: undefined, // To be set.
         baseReqOpts: {
             timeout: 30000,
